@@ -93,24 +93,25 @@ USE_THOUSAND_SEPARATOR = True
 
 # After any changes check:
 
-## This pages  
-Дашборд                             | http://127.0.0.1:8000/admin/                                       
-Страница апликейшена                | http://127.0.0.1:8000/admin/users/           
-Список: С фильтром                  | http://127.0.0.1:8000/admin/users/user/                 
-Список: С редактируемыми полями     | http://127.0.0.1:8000/admin/users/group/
-Список: Подтверждение удаления      | http://127.0.0.1:3000/admin/users/user/
-Детальная: Страница добавления      | http://127.0.0.1:8000/admin/users/user/add/
-Детальная: С филдсетами             | http://127.0.0.1:3000/admin/users/user/1/change/        
-Детальная: Простая                  | http://127.0.0.1:3000/admin/users/user/2/change/ 
-Детальная: История                  | http://127.0.0.1:3000/admin/users/user/1/history/
-Детальная: Подтверждение удаления   | http://127.0.0.1:3000/admin/users/user/1/delete/
-Пользователь: Вход для анонимного   | http://127.0.0.1:8000/admin/
-Пользователь: Сброс пароля          | http://127.0.0.1:3000/admin/users/user/1/password/
-Пользователь: Смена пароля          | http://127.0.0.1:3000/admin/password_change/            
-Пользователь: Выход                 | http://127.0.0.1:3000/admin/logout/
-Документация: Главная               | http://127.0.0.1:8000/admin/doc/
-Документация: Список                | http://127.0.0.1:8000/admin/doc/models/
-Документация: Детальная страница    | http://127.0.0.1:8000/admin/doc/models/admin.logentry/
+## This pages
+| --- | --- |
+| Дашборд                             | http://127.0.0.1:8000/admin/                           |                                                                          
+| Страница апликейшена                | http://127.0.0.1:8000/admin/users/                     |                                                    
+| Список: С фильтром                  | http://127.0.0.1:8000/admin/users/user/                |                                                               
+| Список: С редактируемыми полями     | http://127.0.0.1:8000/admin/users/group/               |                                               
+| Список: Подтверждение удаления      | http://127.0.0.1:3000/admin/users/user/                |                                              
+| Детальная: Страница добавления      | http://127.0.0.1:8000/admin/users/user/add/            |                                                  
+| Детальная: С филдсетами             | http://127.0.0.1:3000/admin/users/user/1/change/       |                                                               
+| Детальная: Простая                  | http://127.0.0.1:3000/admin/users/user/2/change/       |                                                        
+| Детальная: История                  | http://127.0.0.1:3000/admin/users/user/1/history/      |                                                        
+| Детальная: Подтверждение удаления   | http://127.0.0.1:3000/admin/users/user/1/delete/       |                                                       
+| Пользователь: Вход для анонимного   | http://127.0.0.1:8000/admin/                           |                                   
+| Пользователь: Сброс пароля          | http://127.0.0.1:3000/admin/users/user/1/password/     |                                                         
+| Пользователь: Смена пароля          | http://127.0.0.1:3000/admin/password_change/           |                                                               
+| Пользователь: Выход                 | http://127.0.0.1:3000/admin/logout/                    |                                          
+| Документация: Главная               | http://127.0.0.1:8000/admin/doc/                       |                                       
+| Документация: Список                | http://127.0.0.1:8000/admin/doc/models/                |                                              
+| Документация: Детальная страница    | http://127.0.0.1:8000/admin/doc/models/admin.logentry/ |                                                             
 
 ## This blocks
 - Левая панель
