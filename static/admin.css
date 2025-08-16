@@ -1,0 +1,252 @@
+:root {
+    --scrollbar-width:24px;
+    --sticky-width: calc(100vw - var(--filter-width) - var(--scrollbar-width));
+}
+
+/* Лейаут + Список */
+
+#container {padding-top:48px;display:inline-block;height:auto; /* height:auto;width:auto;min-width:auto; */}
+    #main {}
+        #content-start {max-width:none;}
+            #content {padding:0;}
+                h1 {margin:0 !important;font-size:20px;line-height:30px;padding:12px 12px 12px;position:sticky;left:0;width:var(--sticky-width);box-sizing:border-box;}
+                #content-main {width:auto;float:none;}
+                #content-main ~ br.clear {display:none}
+                    #changelist {margin-bottom:0;}
+                        .changelist-form-container {}
+                            #changelist-form {}
+                                #changelist-form .results {overflow-x:unset;width:auto;}
+                                #changelist.filtered #changelist-form .results {padding-right:var(--filter-width);}
+                                    #result_list {}
+                                        #result_list table {}
+                                            #result_list :is(th, td) {vertical-align:middle;}
+                                            #result_list .related-widget-wrapper {margin-bottom:0;}
+                                    .paginator {z-index:2;position:sticky;bottom:0;left:0;width:calc(100vw - var(--filter-width) - var(--scrollbar-width)) !important;}
+                        #changelist-filter {position:fixed;right:0;top:48px;bottom:0;width:var(--filter-width);margin-left:0;z-index:2;overflow-y:auto;box-shadow:-1px 0 0 var(--hairline-color)}
+                            #changelist-filter-header {display:none;}
+
+/* Детальная страница */
+
+.change-form #content-main {}
+    .change-form .object-tools {height:26px;margin-top:calc(-26px - 12px - 2px);padding-right:12px;position:sticky;right:0;}
+    .change-form form {}
+        .change-form div {}
+            .change-form form > div > fieldset.module {margin:0;width:var(--sticky-width);position:sticky;left:0;}
+                .change-form .module details {}
+                    .change-form .module details summary,
+                    .change-form fieldset .fieldset-heading,
+                    .change-form fieldset .inline-heading,
+                    .change-form :not(.inline-related) .collapse summary {border:0;background:var(--hairline-color);color:var(--body-loud-color);box-shadow:inset 0 -1px 0 var(--body-bg);padding-top:7px;}
+                .form-row {padding-top:6px;padding-bottom:6px;}
+                    .form-row .flex-container {}
+                        .form-row .flex-container.checkbox-row label {width:auto;}
+            .change-form .inline-group {margin:0;}
+                .change-form .inline-related {}
+                    .change-form fieldset.module {}
+                        .change-form .inline-heading {width:calc(100vw - var(--scrollbar-width));position:sticky;left:0;background:var(--hairline-color);border-color:var(--hairline-color);color:var(--body-loud-color);}
+                        .change-form fieldset.module table {}
+                            .change-form fieldset.module table :is(td, th):is(:nth-child(1), :nth-child(2)) {position:sticky;left:0;}
+                            .change-form fieldset.module table .add-row td a {position:sticky;left:10px;}
+                                .change-form .inline-deletelink {font-size:0;}
+
+.submit-row {position:sticky;bottom:0;left:0;z-index:3;margin:48px 0 0;border-radius:0;border-width:1px 0 0 0;width:var(--sticky-width);box-sizing:border-box;}
+
+/* Inputs */
+
+:is(#result_list, .form-row) :is(input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=number], input[type=tel], select:not([multiple]), .vTextField),
+:is(#result_list, .form-row) .flex-container > textarea {box-sizing:border-box;min-height:28px;margin:0;}
+:is(#result_list, .form-row) select:not([multiple]) {height:28px;min-width:260px;padding:0 2px;}
+p.datetime br {display:none;}
+
+/* Таблицы */
+
+:is(#result_list, fieldset) thead {position:sticky;z-index:2;box-shadow:inset 0 0 0 1px var(--hairline-color);}
+:is(              fieldset) thead {top:48px;}
+:is(#result_list,         ) thead {top:calc(48px + 50px);}
+    :is(#result_list, fieldset) tr {}
+        :is(#result_list, fieldset) tbody tr:not(.selected):nth-child(odd) > :is(:nth-child(1), :nth-child(2)) {background:var(--body-bg);}
+        :is(#result_list, fieldset) tbody tr:not(.selected):nth-child(even) > :is(:nth-child(1), :nth-child(2)) {background:var(--darkened-bg);}
+
+        :is(#result_list, fieldset) tr > :is(:nth-child(2)) {box-shadow:inset -1px 0 0 var(--hairline-color)}
+
+        :is(#result_list, fieldset) tr > *:nth-child(1) {position:sticky;left:0;z-index:1;}
+        :is(#result_list, fieldset) tr > *:nth-child(2) {position:sticky;left:0;z-index:1;}
+        :is(              fieldset) tr > td:nth-child(2) {z-index:1;}
+        :is(#result_list          ) tr > *:nth-child(2)  {left:35px;}
+
+        :is(#result_list          ) tr > th:nth-child(1) {padding-left:2px;}
+        :is(#result_list          ) tr > td:nth-child(1) {padding-left:10px;}
+
+/* Главная */
+
+.dashboard #content {width:100%;padding:12px !important;box-sizing:border-box;}
+    .dashboard #content h1 {padding:0 0 12px 0;width:calc(var(--sticky-width) - 24px);}
+    .dashboard #content-main {width:calc(100% - 260px);float:left;box-sizing:border-box;padding-right:12px;}
+    .dashboard[class*=' app-'] #content-main {width:100%;padding-right:0;}
+    .dashboard #content-main ~ br.clear {display:block;}
+        .dashboard #content-main caption {background:var(--hairline-color);}
+            .dashboard #content-main caption a {color:var(--body-loud-color);}
+    .dashboard #content-related {margin-right:0;}
+        .dashboard #recent-actions-module {margin-bottom:0;}
+            .dashboard #recent-actions-module h2 {display:none;}
+            .dashboard #recent-actions-module h3 {padding-top:16px;}
+
+/* Login */
+
+.login #container {display:block;padding-top:0;}
+    .login #content {padding:24px !important;}
+        .login .form-row {padding:0 !important;}
+.login .submit-row {width:auto;}
+
+/* Logout */
+
+#content > h1 ~ p, #content > h1 ~ p ~ p {padding-left:12px;}
+
+/* Документация */
+
+.admin-docs #content {padding:0 24px 24px;}
+    .admin-docs .Back {display:inline-block;margin-top:24px;}
+    .admin-docs h1 {width:auto;padding-left:0;}
+    .admin-docs #content-main {width:100%;}
+        .admin-docs #content-main .module {}
+            .admin-docs #content-main .module h2 {}
+            .admin-docs #content-main .module .xfull {width:100%;}
+
+/* Форме изменения и сброса пароля */
+
+#content-main > form > div > p:first-child {padding-left:12px;}
+
+/* Страница подтверждения удаления */
+
+.delete-confirmation #content > * {padding-left:12px;padding-right:12px;}
+    .delete-confirmation #content ul {padding-left:24px;}
+
+/* Хлебные крошки */
+
+.breadcrumbs {display:none;}  /* Выключаем CSS-ом, иначе править в нескольких местах (не хочется дублировать app_index.html) */
+
+/* Messages */
+
+ul.messagelist {position:sticky;left:0;width:calc(100vw - var(--filter-width) - var(--scrollbar-width));}
+    ul.messagelist li {margin-bottom:1px;background-position:12px 12px !important;padding: 10px 10px 10px 37px;}
+
+/* Header */
+
+.Header {
+    position:fixed;width:100%;display:flex;background:var(--breadcrumbs-bg);height:48px;align-items:stretch;top:0;left:0;z-index:3;overflow-y:auto;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+}
+.Header::-webkit-scrollbar {
+    display: none;  /* Older Safari and Chromium */
+}
+    .Header a {background:var(--breadcrumbs-bg);color:#fff;padding:0 14px;display:flex;flex-direction:column;flex-shrink:0;align-items:center;justify-content:center;font-size:14px;text-decoration:none;}
+        .Header a span {}
+        .Header a span:first-child {line-height:16px;}
+        .Header a span:not(:first-child):last-child {opacity:0.5;font-size:12px;line-height:12px;margin-top:2px;}
+    .Header a:hover {box-shadow:inset 0 48px 0 rgba(255,255,255,0.15);}
+    .Header a:active {box-shadow:inset 0 48px 0 rgba(0,0,0,0.15);}
+    .Header a.Current {box-shadow:inset 0 48px 0 var(--header-bg);}
+    .Header a.Opened {box-shadow:inset 0 48px 0 rgba(0,0,0,0.3);}
+
+    .Header a.Icon {padding:0;width:48px;}
+    .Header a:first-child {position:sticky;left:0;z-index:1;}
+    .Header a:last-child {margin-left:auto;}
+
+/* Панель пользователя с Изменить пароль / Тема / Выход */
+
+.UserPanel {display:flex;margin-bottom:12px;align-items:center;}
+    .Welcome {font-size:20px;line-height:30px;font-weight:300;}
+    .UserTools {margin-left:auto;display:flex;height:26px;margin-top:2px;background:var(--object-tools-bg);border-radius:13px;}
+        .UserTools > * {background:none;color:#fff !important;border:0;height:100%;padding:0 12px;display:flex;align-items:center;line-height:16px;font-family:var(--font-family-primary);cursor:pointer;margin:0;font-size:11px;text-transform:uppercase;}
+        .UserTools > *:hover {background:rgba(255,255,255,0.15);}
+        .UserTools > *:active {background:rgba(0,0,0,0.15);text-decoration:none;}
+        .UserTools > *:focus {text-decoration:none;}
+
+        .UserTools > *:first-child {border-radius:13px 0 0 13px;}
+        .UserTools > *:nth-child(3) {width:26px;padding:0;display:flex;justify-content:center;}
+        .UserTools > *:last-child {border-radius:0 13px 13px 0;}
+
+        .UserTools svg {border-radius:4px;color:transparent !important;transform:scale(0.8);}
+
+/* Панель списка */
+
+.Panel {display:flex;padding:12px;margin-top:-12px;position:sticky;z-index:2;top:48px;left:0;background:var(--body-bg);width:calc(100vw - var(--filter-width) - var(--scrollbar-width));box-sizing:border-box;}
+    .Panel * {vertical-align:top;margin:0;}
+
+    .Search {margin-right:12px;}
+    .Actions {width:auto !important;padding:0 !important;}
+    .ObjectTools {margin:0 0 0 auto !important;padding:0 !important;float:none;min-height:26px;}
+
+    .PanelButton, .PanelInput, .PanelSelect {
+        border:1px solid var(--border-color);background:var(--body-bg);min-height:26px;min-width:26px;
+    }
+    .PanelInput  {position:relative;border-radius:4px 0 0 4px;width:200px;}
+    .PanelSelect {position:relative;margin-left:0 !important;border-radius:4px 0 0 4px !important;}
+    .PanelButton {margin-left:-1px;border-radius:0 4px 4px 0;}
+        .PanelButton svg path {fill:var(--body-quiet-color);}
+
+/* Select 2 */
+
+select[multiple] {width:100%;min-height:0;}
+.select2 {min-width:240px;max-width:calc(100% - 36px);}
+.select2 * {vertical-align:top !important;}
+    .selection {}
+        .select2-selection {background-color:var(--body-bg) !important;border-color:var(--border-color) !important;}
+            .select2-container--default .select2-selection--single .select2-selection__rendered {color:var(--body-fg) !important;}
+        .select2-selection--multiple {padding-bottom:2px !important;min-height:28px !important;}
+            .select2 ul {margin-left:0 !important;}
+                .select2 ul li {margin:2px 0 0 2px !important;background-color:var(--body-bg) !important;}
+                    .select2 ul li .select2-selection__choice__remove {height:100%;}
+            .select2-search {}
+                textarea.select2-search__field {min-height:20px;line-height:20px;margin-top:3px !important;margin-bottom:0;}
+.select2-dropdown {background-color:var(--body-bg) !important;border-color:var(--border-color) !important;}
+.select2-results {}
+    .select2-container--default .select2-results__option--selected {background-color:var(--hairline-color);}
+
+/* Меню в панели */
+
+#toggle-nav-sidebar {display:none;}
+.main > #nav-sidebar + .content {max-width:none !important;}
+#nav-sidebar {display:none;visibility:visible !important;position:fixed;top:48px;bottom:0;left:0;width:280px;margin:0;}
+body.NavSidebarOpened #nav-sidebar {display:block;}
+
+#Bars {}
+    .Bars {display:block;}
+    .Close {display:none;}
+    body.NavSidebarOpened .Bars {display:none;}
+    body.NavSidebarOpened .Close {display:block;}
+
+/* Мелочи */
+
+.object-tools li:first-child {margin-left:0;}
+.colMS {margin-right:0 !important;}
+
+@media (max-width:1024px) {
+    #content {padding:0 !important;}
+    .admin-docs #content {padding:0 12px 12px !important;}
+
+    /* Дашборд */
+    .dashboard #content-main {width:100%;padding-right:0;}
+    .dashboard #content-related {width:100%;}
+
+    /* Список */
+    :is(#result_list,         ) thead {top:48px;}
+    .Panel {top:auto;left:0;display:block;}
+        .Panel > * {padding-bottom:6px !important;}
+        .Panel .object-tools li {float:none;}
+    #changelist.filtered #changelist-form .results {padding-right:0 !important;}
+    .paginator {width:calc(100vw - var(--scrollbar-width)) !important;border-top:1px solid var(--hairline-color) !important;}
+
+    /* Детэйл */
+    .change-form .object-tools {position:sticky;left:0;margin-top:0;padding-left:12px;width:calc(100vw - 24px);}
+    .inline-group {overflow:unset !important;}
+}
+
+@media (max-width:767px) {
+    .UserPanel {flex-direction:column;align-items:flex-start;}
+        .UserTools {margin-left:0;}
+    #changelist-filter {position:sticky !important;left:0;bottom:unset;width:calc(100vw - var(--scrollbar-width)) !important;}
+    .form-row {padding:12px !important;}
+    .submit-row {bottom:auto;left:0;margin:0 !important;}
+}
