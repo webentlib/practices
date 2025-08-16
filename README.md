@@ -94,7 +94,6 @@ USE_THOUSAND_SEPARATOR = True
 # After any changes check:
 
 ## This pages
-| --- | --- |
 | Дашборд                             | http://127.0.0.1:8000/admin/                           |                                                                          
 | Страница апликейшена                | http://127.0.0.1:8000/admin/users/                     |                                                    
 | Список: С фильтром                  | http://127.0.0.1:8000/admin/users/user/                |                                                               
