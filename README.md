@@ -74,7 +74,7 @@ Since —
 makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:
 `count = models.IntegerField(group='COUNTERS')`
 
-# Protect admin from brute-force
+# Protect staff users from brute-force
 
 The idea is to add a counter for failed attempts and drive it with custom admin auth form.
 
