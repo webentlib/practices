@@ -1,3 +1,5 @@
+Django-admin on steroids
+
 # Installation
 
 1. Create somewhere list of admin menu items like:
@@ -38,7 +40,7 @@ USE_THOUSAND_SEPARATOR = True
 
 3. Change path of `ADM_MENU` to the path where your menu list actually placed.
 
-# Usage
+# Additional use cases
 
 1. Now, all `ModelAdmins` inherited from `adm.admin.AdmModelAdmin` have 3 additional properties possible:
 ```python
