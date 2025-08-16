@@ -1,5 +1,3 @@
-Django-admin on steroids
-
 # Installation
 
 1. Create somewhere list of admin menu items like:
