@@ -4,7 +4,7 @@ from django.db import models
 
 class FakeQueryset(list):
     """
-    Для реализации кэшируемых полей в BaseModelAdmin.formfield_for_foreignkey необходим список,
+    Для реализации кэшируемых полей в AdmModelAdmin.formfield_for_foreignkey необходим список,
     у которого есть метод .all() и ._prefetch_related_lookups (возвращаемое значение не интересно).
     """
 
@@ -15,15 +15,15 @@ class FakeQueryset(list):
         pass
 
 
-class BaseModelAdmin(admin.ModelAdmin):
-    list_select_related = True
+class AdmModelAdmin(admin.ModelAdmin):
+    list_select_related = []
     nowrap_fields = []
     additional_numeric_fields = []
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if self.list_select_related and \
            self.list_select_related not in [True, False] and \
-           db_field.name in self.list_select_related:
+           db_field.name in self.list_select_related:  # Do we really need such a complex check?
             db_field_name_cache = db_field.name + '_cache'
             cached_queryset = getattr(request, db_field_name_cache, None)
             if not cached_queryset:

@@ -38,6 +38,97 @@ USE_THOUSAND_SEPARATOR = True
 
 3. Change path of `ADM_MENU` to the path where your menu list actually placed.
 
+# Usage
+
+1. Now, all `ModelAdmins` inherited from `adm.admin.AdmModelAdmin` have 3 additional properties possible:
+```python
+from adm.admin import AdmModelAdmin
+from apps.myapp.models import MyModel
+
+
+@admin.register(MyModel)
+class MyModelAdmin(AdmModelAdmin):
+    list_select_related = []  # fields to `select_related` while in `list_editable`
+    nowrap_fields = []        # columns to apply `white-space:nowrap` cc-rule
+    additional_numeric_fields = []  # numeric columns added via `@staticmethod` must also be aligned to right
+```
+
+2. In addition, there is a method to gather `readonly_fields` with:
+`readonly_fields = AdmModelAdmin.get_readonly(MyModel)`
+
+3. And fieldsets can now be defined like that:
+```python
+fieldsets = [
+    [None, {
+        'fields': AdmModelAdmin.get_group(MyModel, None)
+    }],
+    ['Counters', {
+        'classes': ['collapse', 'open'],  # yes, 'open' now works properly with adm
+        'fields': AdmModelAdmin.get_group(MyModel, 'COUNTERS'),
+    }],
+]
+```
+
+Since —
+`from adm import patch_model_field_to_accept_group_param`
+makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:
+`count = models.IntegerField(group='COUNTERS')`
+
+# Protect admin from brute-force
+
+The idea is to add a counter for failed attempts and drive it with custom admin auth form.
+
+1. Inherit your 'User' from `adm.models.AdmUser`.
+   Do not forget to migrate:
+   $ python manage.py makemigrations
+   $ python manage.py migrate
+    
+2. Add `site.py` somewhere to `stem` folder with following content:
+```python
+from django.contrib import admin
+from adm.forms import CustomAuthenticationForm
+
+
+class BaseAdminSite(admin.AdminSite):
+    index_title = 'MyAdmin'
+    login_form = CustomAuthenticationForm
+
+```
+3. Add `apps.py` also somewhere to `stem` folder with following content:
+```python
+from django.contrib import admin
+from django.contrib.admin import sites
+from django.contrib.admin.apps import AdminConfig
+
+
+class BaseAdminConfig(AdminConfig):
+    name = 'stem'
+
+    def ready(self):
+        """https://stackoverflow.com/a/30056258/4117781"""
+        from stem.site import BaseAdminSite
+
+        base_admin_site = BaseAdminSite()
+        admin.site = sites.site = base_admin_site
+```
+4. Add this to the very top of `INSTALLED_APPS` in `settings.py`:
+```python
+INSTALLED_APPS = [
+    # Custom admin
+    'stem.apps.BaseAdminConfig',
+    
+    ...
+]
+```
+
+Done
+
+# How to override things
+
+Assumes, that adm module will be installed in root dir.
+
+1. To override python code — one can edit module itself, or create `adm` folder in `apps` and "inherit/extend".
+2. To override templates — just specify another templates folder, to point it for example to root's templates `TEMPLATES[0]['DIRS'] += ['templates']` somewhere before above `TEMPLATES[0]['DIRS'] += ['adm/templates']`. Then just create `admin` folder inside. 
 
 # Key features
 
