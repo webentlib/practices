@@ -93,7 +93,7 @@ USE_THOUSAND_SEPARATOR = True
 
 # After any changes check:
 
-## This pages
+### This pages
 | Name  | Link |
 | --- | --- |
 | Дашборд                             | http://127.0.0.1:8000/admin/                           |                                                                          
@@ -114,7 +114,7 @@ USE_THOUSAND_SEPARATOR = True
 | Документация: Список                | http://127.0.0.1:8000/admin/doc/models/                |                                              
 | Документация: Детальная страница    | http://127.0.0.1:8000/admin/doc/models/admin.logentry/ |                                                             
 
-## This blocks
+### And this blocks
 - Левая панель
 - Хлебные крошки
 - Вёрстка
