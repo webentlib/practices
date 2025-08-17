@@ -12,7 +12,7 @@ ADM_MENU = [
 ]
 ```
 
-2 In `settings.py` at the very top of your `# CUSTOM` block add:
+2 Add settings to `settings.py` at the very top of your `# CUSTOM`:
 ```python
 # Paths
 
@@ -36,7 +36,9 @@ FORMAT_MODULE_PATH += ['apps.adm.formats']
 USE_THOUSAND_SEPARATOR = True
 ```
 
-3. Change path of `ADM_MENU` to the path where your menu list actually placed.
+Block `# Paths` is optional depending on how your project's `TEMPLATES`, `STATICFILES_DIRS` and `FORMAT_MODULE_PATH` vars are organized.
+
+Change path of `ADM_MENU` and other settings to the path where your menu list and stuff actually placed.
 
 # Additional use cases
 
@@ -128,7 +130,8 @@ Done
 Assumes, that adm module will be installed in root dir.
 
 1. To override python code — one can edit module itself, or create `adm` folder in `apps` and "inherit/extend".
-2. To override templates — just specify another templates folder, to point it for example to root's templates `TEMPLATES[0]['DIRS'] += ['templates']` somewhere before above `TEMPLATES[0]['DIRS'] += ['adm/templates']`. Then just create `admin` folder inside. 
+2. To override templates — just specify another templates folder, to point it for example to root's templates `TEMPLATES[0]['DIRS'] += ['templates']` somewhere above `TEMPLATES[0]['DIRS'] += ['adm/templates']`. Then just create `admin` folder inside. 
+3. To override static, similarly, one can specify something like `STATICFILES_DIRS = [BASE_DIR / 'static/']` above `STATICFILES_DIRS += [BASE_DIR / 'adm/static/']`.
 
 # Key features
 
