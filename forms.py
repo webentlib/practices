@@ -4,7 +4,7 @@ from django.utils import timezone
 from apps.users.models import User
 
 
-class CustomAuthenticationForm(AuthenticationForm):
+class AdmAuthenticationForm(AuthenticationForm):
     @staticmethod
     def _check_failed_login_attempts(user):
         if user and user.failed_login_attempts > 5:

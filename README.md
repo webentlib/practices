@@ -85,18 +85,18 @@ The idea is to add a counter for failed attempts and drive it with custom admin 
    $ python manage.py makemigrations
    $ python manage.py migrate
     
-2. Add `site.py` somewhere to `stem` folder with following content:
+2. Add `site.py` somewhere in `stem` folder with following content:
 ```python
 from django.contrib import admin
-from adm.forms import CustomAuthenticationForm
+from adm.forms import AdmAuthenticationForm
 
 
 class CustomAdminSite(admin.AdminSite):
     index_title = 'MyAdmin'
-    login_form = CustomAuthenticationForm
+    login_form = AdmAuthenticationForm
 
 ```
-3. Add `apps.py` also somewhere to `stem` folder with following content:
+3. Add `apps.py` also somewhere in `stem` folder with following content:
 ```python
 from django.contrib import admin
 from django.contrib.admin import sites
