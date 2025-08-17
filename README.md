@@ -75,7 +75,7 @@ fieldsets = [
 ]
 ```
 
-To make `.get_group(...)` method work — uncomment that line in `settings.py`:
+To make `.get_group(...)` method work — uncomment that line in `settings.py`:  
 `# from adm import patch_model_field_to_accept_group_param  # uncomment to enable `group` param`
 
 It makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:
