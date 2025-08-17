@@ -22,8 +22,6 @@ FORMAT_MODULE_PATH = []
 
 # Adm
 
-from adm import patch_model_field_to_accept_group_param
-
 ADM_MENU = 'stem.adm_menu.ADM_MENU'
 
 TEMPLATES[0]['DIRS'] += ['adm/templates']
@@ -34,13 +32,16 @@ STATICFILES_DIRS += [BASE_DIR / 'adm/static/']
 
 FORMAT_MODULE_PATH += ['apps.adm.formats']
 USE_THOUSAND_SEPARATOR = True
+
+# from adm import patch_model_field_to_accept_group_param  # uncomment to enable `group` param
 ```
 
 Block `# Paths` is optional depending on how your project's `TEMPLATES`, `STATICFILES_DIRS` and `FORMAT_MODULE_PATH` vars are organized.
 
 Change path of `ADM_MENU` and other settings to the path where your menu list and stuff actually placed.
 
-# Additional use cases
+
+# Common use cases
 
 1. Now, all `ModelAdmins` inherited from `adm.admin.AdmModelAdmin` have 3 additional properties possible:
 ```python
@@ -55,10 +56,13 @@ class MyModelAdmin(AdmModelAdmin):
     additional_numeric_fields = []  # numeric columns added via `@staticmethod` must also be aligned to right
 ```
 
-2. In addition, there is a method to gather `readonly_fields` with:
+2. In addition, there is a convenient method to gather all `readonly_fields` with:
 `readonly_fields = AdmModelAdmin.get_readonly(MyModel)`
 
-3. And fieldsets can now be defined like that:
+
+# Additional use case (define `fieldsets` via `group` param)
+
+Fieldsets can be defined like that:
 ```python
 fieldsets = [
     [None, {
@@ -71,10 +75,12 @@ fieldsets = [
 ]
 ```
 
-Since —
-`from adm import patch_model_field_to_accept_group_param`
-makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:
+To make `.get_group(...)` method work — uncomment that line in `settings.py`:
+`# from adm import patch_model_field_to_accept_group_param  # uncomment to enable `group` param`
+
+It makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:
 `count = models.IntegerField(group='COUNTERS')`
+
 
 # Protect staff users from brute-force
 
@@ -125,6 +131,7 @@ INSTALLED_APPS = [
 
 Done
 
+
 # How to override things
 
 Assumes, that adm module will be installed in root dir.
@@ -132,6 +139,7 @@ Assumes, that adm module will be installed in root dir.
 1. To override python code — one can edit module itself, or create `adm` folder in `apps` and "inherit/extend".
 2. To override templates — just specify another templates folder, to point it for example to root's templates `TEMPLATES[0]['DIRS'] += ['templates']` somewhere above `TEMPLATES[0]['DIRS'] += ['adm/templates']`. Then just create `admin` folder inside. 
 3. To override static, similarly, one can specify something like `STATICFILES_DIRS = [BASE_DIR / 'static/']` above `STATICFILES_DIRS += [BASE_DIR / 'adm/static/']`.
+
 
 # Key features
 
@@ -186,7 +194,7 @@ Assumes, that adm module will be installed in root dir.
 - Мобильная версия — юзабельна
 
 
-# After any changes check:
+# After any overrides check:
 
 ### This pages
 | Name  | Link |
