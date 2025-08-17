@@ -78,7 +78,7 @@ fieldsets = [
 To make `.get_group(...)` method work — uncomment that line in `settings.py`:  
 `# from adm import patch_model_field_to_accept_group_param  # uncomment to enable `group` param`
 
-It makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:
+It makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:  
 `count = models.IntegerField(group='COUNTERS')`
 
 
@@ -86,9 +86,9 @@ It makes all subclasses of `django.db.models.fields.Field` accept `group` attrib
 
 The idea is to add a counter for failed attempts and drive it with custom admin auth form.
 
-1. Inherit your 'User' from `adm.models.AdmUser`.
-   Do not forget to migrate:
-   $ python manage.py makemigrations
+1. Inherit your 'User' from `adm.models.AdmUser`.  
+   Do not forget to migrate:  
+   $ python manage.py makemigrations  
    $ python manage.py migrate
     
 2. Add `site.py` somewhere in `stem` folder with following content:
