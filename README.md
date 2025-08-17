@@ -91,7 +91,7 @@ from django.contrib import admin
 from adm.forms import CustomAuthenticationForm
 
 
-class BaseAdminSite(admin.AdminSite):
+class CustomAdminSite(admin.AdminSite):
     index_title = 'MyAdmin'
     login_form = CustomAuthenticationForm
 
@@ -103,21 +103,21 @@ from django.contrib.admin import sites
 from django.contrib.admin.apps import AdminConfig
 
 
-class BaseAdminConfig(AdminConfig):
+class CustomAdminConfig(AdminConfig):
     name = 'stem'
 
     def ready(self):
         """https://stackoverflow.com/a/30056258/4117781"""
-        from stem.site import BaseAdminSite
+        from stem.site import CustomAdminSite
 
-        base_admin_site = BaseAdminSite()
+        base_admin_site = CustomAdminSite()
         admin.site = sites.site = base_admin_site
 ```
 4. Add this to the very top of `INSTALLED_APPS` in `settings.py`:
 ```python
 INSTALLED_APPS = [
     # Custom admin
-    'stem.apps.BaseAdminConfig',
+    'stem.apps.CustomAdminConfig',
     
     ...
 ]
