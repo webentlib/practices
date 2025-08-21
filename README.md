@@ -1,6 +1,6 @@
 # Installation
 
-1. Create somewhere list of admin menu items like:
+#### 1. Create somewhere list of admin menu items like:
 `stem/daos_menu.py`:
 ```python
 from daos.menu import item
@@ -22,7 +22,7 @@ DAOS_MENU = [
 ]
 ```
 
-2 `settings.py`:
+#### 2. `settings.py`:
 
 Next settings pattern relies on `# Paths` section at the very top of your `# CUSTOM` block
 ```python
@@ -85,7 +85,7 @@ urlpatterns += [
 
 # Common use cases
 
-1. Now, all `ModelAdmins` inherited from `daos.admin.DaosModelAdmin` have 3 additional properties possible:
+#### 1. Now, all `ModelAdmins` inherited from `daos.admin.DaosModelAdmin` have 3 additional properties possible:
 ```python
 from daos.admin import DaosModelAdmin
 from apps.myapp.models import MyModel
@@ -98,7 +98,7 @@ class MyModelAdmin(DaosModelAdmin):
     additional_numeric_fields = []  # numeric columns added via `@staticmethod` must also be aligned to right
 ```
 
-2. In addition, there is a convenient method to gather all `readonly_fields` with:
+#### 2. In addition, there is a convenient method to gather all `readonly_fields` with:
 `readonly_fields = DaosModelAdmin.get_readonly(MyModel)`
 
 
@@ -128,12 +128,12 @@ It makes all subclasses of `django.db.models.fields.Field` accept `group` attrib
 
 The idea is to add a counter for failed attempts and drive it with custom admin auth form.
 
-1. Inherit your 'User' from `daos.models.DaosUser`.  
+#### 1. Inherit your 'User' from `daos.models.DaosUser`.  
    Do not forget to migrate:  
    $ python manage.py makemigrations  
    $ python manage.py migrate
     
-2. Add `site.py` somewhere in `stem` folder with following content:
+#### 2. Add `site.py` somewhere in `stem` folder with following content:
 ```python
 from django.contrib import admin
 from daos.forms import DaosAuthenticationForm
@@ -144,7 +144,7 @@ class CustomAdminSite(admin.AdminSite):
     login_form = DaosAuthenticationForm
 
 ```
-3. Add `apps.py` also somewhere in `stem` folder with following content:
+#### 3. Add `apps.py` also somewhere in `stem` folder with following content:
 ```python
 from django.contrib import admin
 from django.contrib.admin import sites
