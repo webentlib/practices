@@ -1,63 +1,105 @@
 # Installation
 
 1. Create somewhere list of admin menu items like:
-`stem/adm_menu.py`:
+`stem/daos_menu.py`:
 ```python
-from adm.menu import item
+from daos.menu import item
 
 
-ADM_MENU = [
-    item('users/user/', 'Пользователи', 'User'),
-    item('users/group/', 'Группы', 'Group'),
+DAOS_MENU = [
+    item('users.User', 'Users'),
+    item('users.Group', 'Groups'),
 ]
 ```
 
-2 Add settings to `settings.py` at the very top of your `# CUSTOM`:
+Additional examples of `DAOS_MENU`:
+```python
+DAOS_MENU = [
+    ...
+    item('/admin/users/group/add/', 'Add Group'),
+    item('/some-client-ui-url', 'Some Client UI url'),
+    item('https://google.com', 'Google.com', target='_blank'),  # External
+]
+```
+
+2 `settings.py`:
+
+Next settings pattern relies on `# Paths` section at the very top of your `# CUSTOM` block
 ```python
 # Paths
 
 TEMPLATES[0]['OPTIONS']['libraries'] = {}
 STATICFILES_DIRS = []
 FORMAT_MODULE_PATH = []
+```
 
-# Adm
+Else — adjust next settings somehow to `TEMPLATES`, `STATICFILES_DIRS` and `FORMAT_MODULE_PATH` directly:
 
-ADM_MENU = 'stem.adm_menu.ADM_MENU'
+```python
+# DAOS
 
-TEMPLATES[0]['DIRS'] += ['adm/templates']
-TEMPLATES[0]['OPTIONS']['libraries']['adm_extras'] = 'adm.templatetags.adm_extras'
-TEMPLATES[0]['OPTIONS']['context_processors'] += ['adm.menu.menu']
+DAOS_MENU = 'stem.daos_menu.DAOS_MENU'
+DAOS_STATIC = 'daos/static/'
 
-STATICFILES_DIRS += [BASE_DIR / 'adm/static/']
+TEMPLATES[0]['DIRS'] += ['daos/templates']
+TEMPLATES[0]['OPTIONS']['libraries']['daos_extras'] = 'daos.templatetags.daos_extras'
+TEMPLATES[0]['OPTIONS']['context_processors'] += ['daos.menu.menu']
 
-FORMAT_MODULE_PATH += ['apps.adm.formats']
+STATICFILES_DIRS += [BASE_DIR / DAOS_STATIC]
+
+FORMAT_MODULE_PATH += ['daos.formats']
 USE_THOUSAND_SEPARATOR = True
 
-# from adm import patch_model_field_to_accept_group_param  # uncomment to enable `group` param
+# from daos import patch_model_field_to_accept_group_param  # uncomment to enable `group` param
 ```
 
 Block `# Paths` is optional depending on how your project's `TEMPLATES`, `STATICFILES_DIRS` and `FORMAT_MODULE_PATH` vars are organized.
 
-Change path of `ADM_MENU` and other settings to the path where your menu list and stuff actually placed.
+Change path of `DAOS_MENU` and other settings to the path where your menu list and stuff actually placed.
 
+
+# `urls.py`
+
+Add explicit Daos and Django's admin static paths for `DEBUG = False` somewhere after `urlpatterns` declaration:
+
+```
+# Explicit Daos and Django's admin static paths for `DEBUG = False`:
+
+import site
+from django.urls import re_path
+from django.views.static import serve
+from django.conf import settings
+
+urlpatterns += [
+    # DAOS static
+    re_path(r'^static/([^/]+)$', serve, kwargs={
+        'document_root': settings.DAOS_STATIC
+    }),
+
+    # Django's admin static (also works inside Docker)
+    re_path(r'^static/(?P<path>.*)$', serve, kwargs={
+        'document_root': site.getsitepackages()[0] + '/django/contrib/admin/static/'
+    }),
+]
+```
 
 # Common use cases
 
-1. Now, all `ModelAdmins` inherited from `adm.admin.AdmModelAdmin` have 3 additional properties possible:
+1. Now, all `ModelAdmins` inherited from `daos.admin.DaosModelAdmin` have 3 additional properties possible:
 ```python
-from adm.admin import AdmModelAdmin
+from daos.admin import DaosModelAdmin
 from apps.myapp.models import MyModel
 
 
 @admin.register(MyModel)
-class MyModelAdmin(AdmModelAdmin):
+class MyModelAdmin(DaosModelAdmin):
     list_select_related = []  # fields to `select_related` while in `list_editable`
     nowrap_fields = []        # columns to apply `white-space:nowrap` cc-rule
     additional_numeric_fields = []  # numeric columns added via `@staticmethod` must also be aligned to right
 ```
 
 2. In addition, there is a convenient method to gather all `readonly_fields` with:
-`readonly_fields = AdmModelAdmin.get_readonly(MyModel)`
+`readonly_fields = DaosModelAdmin.get_readonly(MyModel)`
 
 
 # Additional use case (define `fieldsets` via `group` param)
@@ -66,17 +108,17 @@ Fieldsets can be defined like that:
 ```python
 fieldsets = [
     [None, {
-        'fields': AdmModelAdmin.get_group(MyModel, None)
+        'fields': DaosModelAdmin.get_group(MyModel, None)
     }],
     ['Counters', {
-        'classes': ['collapse', 'open'],  # yes, 'open' now works properly with adm
-        'fields': AdmModelAdmin.get_group(MyModel, 'COUNTERS'),
+        'classes': ['collapse', 'open'],  # yes, 'open' now works properly with 'daos'
+        'fields': DaosModelAdmin.get_group(MyModel, 'COUNTERS'),
     }],
 ]
 ```
 
 To make `.get_group(...)` method work — uncomment that line in `settings.py`:  
-`# from adm import patch_model_field_to_accept_group_param  # uncomment to enable `group` param`
+`# from daos import patch_model_field_to_accept_group_param  # uncomment to enable `group` param`
 
 It makes all subclasses of `django.db.models.fields.Field` accept `group` attribute:  
 `count = models.IntegerField(group='COUNTERS')`
@@ -86,7 +128,7 @@ It makes all subclasses of `django.db.models.fields.Field` accept `group` attrib
 
 The idea is to add a counter for failed attempts and drive it with custom admin auth form.
 
-1. Inherit your 'User' from `adm.models.AdmUser`.  
+1. Inherit your 'User' from `daos.models.DaosUser`.  
    Do not forget to migrate:  
    $ python manage.py makemigrations  
    $ python manage.py migrate
@@ -94,12 +136,12 @@ The idea is to add a counter for failed attempts and drive it with custom admin 
 2. Add `site.py` somewhere in `stem` folder with following content:
 ```python
 from django.contrib import admin
-from adm.forms import AdmAuthenticationForm
+from daos.forms import DaosAuthenticationForm
 
 
 class CustomAdminSite(admin.AdminSite):
     index_title = 'MyAdmin'
-    login_form = AdmAuthenticationForm
+    login_form = DaosAuthenticationForm
 
 ```
 3. Add `apps.py` also somewhere in `stem` folder with following content:
@@ -134,11 +176,11 @@ Done
 
 # How to override things
 
-Assumes, that adm module will be installed in root dir.
+Assumes, that 'daos' module will be installed in root dir.
 
-1. To override python code — one can edit module itself, or create `adm` folder in `apps` and "inherit/extend".
-2. To override templates — just specify another templates folder, to point it for example to root's templates `TEMPLATES[0]['DIRS'] += ['templates']` somewhere above `TEMPLATES[0]['DIRS'] += ['adm/templates']`. Then just create `admin` folder inside. 
-3. To override static, similarly, one can specify something like `STATICFILES_DIRS = [BASE_DIR / 'static/']` above `STATICFILES_DIRS += [BASE_DIR / 'adm/static/']`.
+1. To override python code — one can edit module itself, or create `daos` folder in `apps` and "inherit/extend".
+2. To override templates — just specify another templates folder, to point it for example to root's templates `TEMPLATES[0]['DIRS'] += ['templates']` somewhere above `TEMPLATES[0]['DIRS'] += ['daos/templates']`. Then just create `admin` folder inside. 
+3. To override static, similarly, one can specify something like `STATICFILES_DIRS = [BASE_DIR / 'static/']` above `STATICFILES_DIRS += [BASE_DIR / 'daos/static/']`.
 
 
 # Key features
