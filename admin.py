@@ -4,7 +4,7 @@ from django.db import models
 
 class FakeQueryset(list):
     """
-    Для реализации кэшируемых полей в AdmModelAdmin.formfield_for_foreignkey необходим список,
+    Для реализации кэшируемых полей в DaosModelAdmin.formfield_for_foreignkey необходим список,
     у которого есть метод .all() и ._prefetch_related_lookups (возвращаемое значение не интересно).
     """
 
@@ -15,7 +15,7 @@ class FakeQueryset(list):
         pass
 
 
-class AdmModelAdmin(admin.ModelAdmin):
+class DaosModelAdmin(admin.ModelAdmin):
     list_select_related = []
     nowrap_fields = []
     additional_numeric_fields = []
