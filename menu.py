@@ -34,5 +34,10 @@ def item(
 
 def menu(request):
     from django.conf import settings
-    DAOS_MENU = import_string(settings.DAOS_MENU)
+
+    try:
+        DAOS_MENU = import_string(settings.DAOS_MENU)
+    except AttributeError:
+        DAOS_MENU = []
+
     return {'DAOS_MENU': DAOS_MENU}

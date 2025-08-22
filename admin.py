@@ -46,6 +46,10 @@ class DaosModelAdmin(admin.ModelAdmin):
         field_names = self.additional_numeric_fields
         for field in self.model._meta.get_fields():
             if field.__class__ in [
+                models.AutoField,
+                models.SmallAutoField,
+                models.BigAutoField,
+
                 models.FloatField,
 
                 models.SmallIntegerField,
