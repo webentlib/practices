@@ -1,15 +1,24 @@
 html {
     --scrollbar-width:24px;
     --sticky-width:calc(100vw - var(--filter-width) - var(--scrollbar-width));
-    --header-background-color:hsl(0,0%,100%);
+}
+
+html, html[data-theme="light"] {
     --body-background:hsl(0,0%,98%);
-    --header-font-color:#000;
+
+    --header-background:hsl(0,0%,30%);
+    --header-font-color:#fff;
+
+    --object-tools-bg:hsl(0,0%,50%);
 }
 
 html[data-theme="dark"] {
-    --header-background-color:hsl(0,0%,10%);
-    --header-font-color:#fff;
     --body-background:hsl(0,0%,0%);
+
+    --header-background:hsl(0,0%,10%);
+    --header-font-color:#fff;
+
+    --object-tools-bg:hsl(0,0%,15%);
 }
 
 body {background:var(--body-background);}
@@ -61,8 +70,9 @@ body {background:var(--body-background);}
                             .change-form fieldset.module table .add-row td a {position:sticky;left:10px;}
                                 .change-form .inline-deletelink {font-size:0;}
 
-*:has(> .submit-row) {padding-bottom:calc(60px + 24px);}
-.submit-row {position:fixed;bottom:0;left:0;z-index:3;margin:0;border-radius:0;border-width:1px 0 0 0;width:var(--sticky-width);box-sizing:border-box;background:var(--header-background-color);}
+.submit-row {position:sticky;bottom:0;left:0;z-index:3;margin:48px 0 0;border-radius:0;border-width:1px 0 0 0;width:var(--sticky-width);box-sizing:border-box;}
+body:not(.login) .submit-row {background:var(--body-background);/*position:fixed;bottom:0;left:0;z-index:3;*/}
+/*body:not(.login) *:has(> .submit-row) {padding-bottom:calc(60px + 24px);}*/
 
 /* Inputs */
 
@@ -146,10 +156,10 @@ ul.messagelist {position:sticky;left:0;width:calc(100vw - var(--filter-width) - 
 /* Header */
 
 .Header {
-    position:fixed;width:100%;display:flex;background:var(--header-background-color);height:48px;align-items:stretch;top:0;left:0;z-index:3;overflow-y:auto;
+    position:fixed;width:100%;display:flex;background:var(--header-background);height:48px;align-items:stretch;top:0;left:0;z-index:3;overflow-y:auto;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
-    box-shadow:0 0 3px rgba(0,0,0,0.2);
+    /*box-shadow:0 0 3px rgba(0,0,0,0.2);*/
 }
 .Header::-webkit-scrollbar {
     display: none;  /* Older Safari and Chromium */
@@ -158,15 +168,20 @@ ul.messagelist {position:sticky;left:0;width:calc(100vw - var(--filter-width) - 
         .HeaderLinkName {line-height:20px;}
         .HeaderLinkDescription {opacity:0.5;font-size:12px;line-height:12px;}
 
-    .HeaderLink:hover   {background:rgba(0,0,0,0.04);}
-    .HeaderLink:active  {background:rgba(0,0,0,0.16);}
-    .HeaderLink.Current {background:rgba(0,0,0,0.08);}
-    .HeaderLink.Opened  {background:rgba(0,0,0,0.12);}
+    /*.HeaderLink:hover   {background:rgba(0,0,0,0.04);}*/
+    /*.HeaderLink:active  {background:rgba(0,0,0,0.16);}*/
+    /*.HeaderLink.Current {background:rgba(0,0,0,0.08);}*/
+    /*.HeaderLink.Opened  {background:rgba(0,0,0,0.12);}*/
 
-    html[data-theme="dark"] .HeaderLink:hover   {background:rgba(255,255,255,0.1);}
-    html[data-theme="dark"] .HeaderLink:active  {background:rgba(0,0,0,0.3);}
-    html[data-theme="dark"] .HeaderLink.Current {background:rgba(255,255,255,0.15);}
-    html[data-theme="dark"] .HeaderLink.Opened  {background:rgba(255,255,255,0.2);}
+    /*html[data-theme="dark"] .HeaderLink:hover   {background:rgba(255,255,255,0.1);}*/
+    /*html[data-theme="dark"] .HeaderLink:active  {background:rgba(0,0,0,0.3);}*/
+    /*html[data-theme="dark"] .HeaderLink.Current {background:rgba(255,255,255,0.15);}*/
+    /*html[data-theme="dark"] .HeaderLink.Opened  {background:rgba(255,255,255,0.2);}*/
+
+    .HeaderLink:hover   {background:rgba(255,255,255,0.1);}
+    .HeaderLink:active  {background:rgba(0,0,0,0.3);}
+    .HeaderLink.Current {background:rgba(255,255,255,0.15);}
+    .HeaderLink.Opened  {background:rgba(255,255,255,0.2);}
 
     .HeaderLink.Icon {padding:0;width:48px;}
     .HeaderLink:first-child {position:sticky;left:0;z-index:1;}
@@ -242,6 +257,8 @@ body.NavSidebarOpened #nav-sidebar {display:block;}
 .object-tools li:first-child {margin-left:0;}
 .colMS {margin-right:0 !important;}
 
+html:not([data-theme="dark"]) #content-related {--darkened-bg:#fff;}
+
 @media (max-width:1024px) {
     #content {padding:0 !important;}
     .admin-docs #content {padding:0 12px 12px !important;}
@@ -268,5 +285,5 @@ body.NavSidebarOpened #nav-sidebar {display:block;}
         .UserTools {margin-left:0;}
     #changelist-filter {position:sticky !important;left:0;bottom:unset;width:calc(100vw - var(--scrollbar-width)) !important;}
     .form-row {padding:12px !important;}
-    /*.submit-row {bottom:auto;left:0;margin:0 !important;}*/
+    .submit-row {bottom:auto;left:0;margin:0 !important;}
 }
