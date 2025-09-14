@@ -24,11 +24,30 @@ DAOS_MENU = [
 
 ### 2. `settings.py`:
 
+Add blank `'libraries': {},` to `TEMPLATES`
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'libraries': {},  # added
+        },
+    },
+]
+```
+
 Next settings pattern relies on `# Paths` section at the very top of your `# CUSTOM` block
 ```python
 # Paths
 
-TEMPLATES[0]['OPTIONS']['libraries'] = {}
 STATICFILES_DIRS = []
 FORMAT_MODULE_PATH = []
 ```
@@ -36,19 +55,16 @@ FORMAT_MODULE_PATH = []
 Else — adjust next settings somehow to `TEMPLATES`, `STATICFILES_DIRS` and `FORMAT_MODULE_PATH` directly:
 
 ```python
-# DAOS
+# Daos
 
 DAOS_MENU = 'stem.daos_menu.DAOS_MENU'
-DAOS_STATIC = 'daos/static/'
+STATICFILES_DIRS += [BASE_DIR / 'daos/static/']
+FORMAT_MODULE_PATH += ['daos.formats']
+USE_THOUSAND_SEPARATOR = True
 
 TEMPLATES[0]['DIRS'] += ['daos/templates']
 TEMPLATES[0]['OPTIONS']['libraries']['daos_extras'] = 'daos.templatetags.daos_extras'
 TEMPLATES[0]['OPTIONS']['context_processors'] += ['daos.menu.menu']
-
-STATICFILES_DIRS += [BASE_DIR / DAOS_STATIC]
-
-FORMAT_MODULE_PATH += ['daos.formats']
-USE_THOUSAND_SEPARATOR = True
 
 # from daos import patch_model_field_to_accept_group_param  # uncomment to enable `group` param
 ```
@@ -63,23 +79,13 @@ Change path of `DAOS_MENU` and other settings to the path where your menu list a
 Add explicit Daos and Django's admin static paths for `DEBUG = False` somewhere after `urlpatterns` declaration:
 
 ```
-# Explicit Daos and Django's admin static paths for `DEBUG = False`:
+# DAOS STATIC
 
-import site
 from django.urls import re_path
-from django.views.static import serve
-from django.conf import settings
+from daos.daos_serve import daos_serve
 
 urlpatterns += [
-    # DAOS static
-    re_path(r'^static/([^/]+)$', serve, kwargs={
-        'document_root': settings.DAOS_STATIC
-    }),
-
-    # Django's admin static (also works inside Docker)
-    re_path(r'^static/(?P<path>.*)$', serve, kwargs={
-        'document_root': site.getsitepackages()[0] + '/django/contrib/admin/static/'
-    }),
+    re_path(r'^static/(?P<path>.*)$', daos_serve),
 ]
 ```
 
@@ -234,6 +240,7 @@ Assumes, that 'daos' module will be installed in root dir.
 - Хлебные крошки вынесены в заголовки
 - Главная страница вытянута на всю ширину окна
 - Мобильная версия — юзабельна
+- Убрана auto тема
 
 
 # After any overrides check:

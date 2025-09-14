@@ -259,6 +259,13 @@ body.NavSidebarOpened #nav-sidebar {display:block;}
 
 html:not([data-theme="dark"]) #content-related {--darkened-bg:#fff;}
 
+/* Lib */
+
+.TableSummary {display:table;--padding:2px;}
+    .TableSummary > * {display:table-row;}
+        .TableSummary > * > * {display:table-cell;padding:var(--padding);}
+        .TableSummary > * > *:first-child {font-weight:500;padding-left:0;}
+
 @media (max-width:1024px) {
     #content {padding:0 !important;}
     .admin-docs #content {padding:0 12px 12px !important;}
