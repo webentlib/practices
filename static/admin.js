@@ -1,14 +1,29 @@
-// Сетим --scrollbar-width в CSS Переменную
-document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + "px");
+// СЕТИМ --scrollbar-width В CSS ПЕРЕМЕННУЮ
 
-// Исправляем баг с collapse
+function set_scrollbar_width() {
+    document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + "px");
+}
+
+window.addEventListener('load', () => {
+    set_scrollbar_width();
+});
+
+window.addEventListener('resize', () => {
+    set_scrollbar_width();
+});
+
+
+// ИСПРАВЛЯЕМ БАГ С collapse
+
 for (const fieldset of document.querySelectorAll('.collapse.open')) {
     fieldset.querySelector('details').setAttribute('open', true);
 }
 
-// Левая панель в Шапке
+
+// ЛЕВАЯ ПАНЕЛЬ В ШАПКЕ
+
 document.querySelector('#Bars').addEventListener('click', function(e) {
-    e.currentTarget.classList.toggle('Opened');
+    e.currentTarget.classList.toggle('_Opened');
     document.body.classList.toggle('NavSidebarOpened');
 });
 
