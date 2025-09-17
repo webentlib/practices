@@ -179,14 +179,14 @@ ul.messagelist {position:sticky;left:0;width:calc(100vw - var(--filter-width) - 
     /*html[data-theme="dark"] .HeaderLink.Current {background:rgba(255,255,255,0.15);}*/
     /*html[data-theme="dark"] .HeaderLink.Opened  {background:rgba(255,255,255,0.2);}*/
 
-    .HeaderLink:hover   {background:rgba(255,255,255,0.1);}
-    .HeaderLink:active  {background:rgba(0,0,0,0.3);}
-    .HeaderLink._Current {background:rgba(255,255,255,0.15);}
-    .HeaderLink._Opened  {background:rgba(255,255,255,0.2);}
+    .HeaderLink:hover    {box-shadow:inset 0 var(--header-height) 0 rgba(255,255,255,0.1);}
+    .HeaderLink:active   {box-shadow:inset 0 var(--header-height) 0 rgba(0,0,0,0.3);}
+    .HeaderLink._Current {box-shadow:inset 0 var(--header-height) 0 rgba(255,255,255,0.15);}
+    .HeaderLink._Opened  {box-shadow:inset 0 var(--header-height) 0 rgba(255,255,255,0.2);}
 
     .HeaderLink._Icon {padding:0;width:var(--header-height);}
-    .HeaderLink:first-child {position:sticky;left:0;z-index:1;}
-    .HeaderLink:last-child {margin-left:auto;}
+    .HeaderLink:first-child {position:sticky;left:0;z-index:1;background:var(--header-background);}
+    .HeaderLink:last-child {margin-left:auto;position:sticky;right:0;background:var(--header-background);}
 
 /* Панель пользователя с Изменить пароль / Тема / Выход */
 
