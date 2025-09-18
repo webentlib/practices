@@ -199,8 +199,8 @@ ul.messagelist {position:sticky;left:0;width:calc(100vw - var(--filter-width) - 
         .UserTools > *:focus {text-decoration:none;}
 
         .UserTools > *:first-child {border-radius:13px 0 0 13px;}
-        .UserTools > *:nth-child(3) {width:26px;padding:0;display:flex;justify-content:center;}
-        .UserTools > *:last-child {border-radius:0 13px 13px 0;}
+        .UserTools > .theme-toggle {width:26px;padding:0;display:flex;justify-content:center;}
+        .UserTools > *:last-child  {border-radius:0 13px 13px 0;}
 
         .UserTools svg {border-radius:4px;color:transparent !important;transform:scale(0.8);}
 

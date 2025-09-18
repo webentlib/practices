@@ -62,7 +62,7 @@ STATICFILES_DIRS += [BASE_DIR / 'daos/static/']
 FORMAT_MODULE_PATH += ['daos.formats']
 USE_THOUSAND_SEPARATOR = True
 
-TEMPLATES[0]['DIRS'] += ['daos/templates']
+TEMPLATES[0]['DIRS'] += [BASE_DIR / 'daos/templates']
 TEMPLATES[0]['OPTIONS']['libraries']['daos_extras'] = 'daos.templatetags.daos_extras'
 TEMPLATES[0]['OPTIONS']['context_processors'] += ['daos.menu.menu']
 

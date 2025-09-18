@@ -71,7 +71,7 @@
                 </div>
             </div>
         {% endif %}
-    {% elif request.path|startswith:docsroot %}
+    {% elif docsroot and request.path|startswith:docsroot %}
         {% if request.path|count:'/' == 4 %}
             <a href="{{ docsroot }}" class="Back">‹ {% translate 'Documentation' %}</a>
         {% endif %}
@@ -100,7 +100,7 @@
     {% endif %}
 {% endblock %}
 
-{% block bodyclass %}{% url 'django-admindocs-docroot' as docsroot %}{% if request.path|startswith:docsroot %}admin-docs{% endif %}{% endblock %}
+{% block bodyclass %}{% url 'django-admindocs-docroot' as docsroot %}{% if docsroot and request.path|startswith:docsroot %}admin-docs{% endif %}{% endblock %}
 
 {% block nav-breadcrumbs %}{% endblock %}
 {% block content_subtitle %}{% endblock %}
