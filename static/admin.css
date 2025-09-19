@@ -1,28 +1,45 @@
-html {
+html[data-theme], :root {
     --header-height:48px;
     --scrollbar-width:24px;
     --sticky-width:calc(100vw - var(--filter-width) - var(--scrollbar-width));
 }
 
+html[data-theme], :root {
+    --button-fg:#fff;
+
+    --default-button-bg:#205067;
+    --default-button-hover-bg:#417690;
+
+    --button-bg:#417690;
+    --button-hover-bg:#205067;
+
+    --delete-button-bg:#ba2121;
+    --delete-button-hover-bg:#a41515;
+}
+
 html[data-theme="light"] {
-    --body-background:hsl(0,0%,98%);
+    --body-bg:hsl(0,0%,98%);
+    --body-fg:#000;
 
     --header-background:hsl(0,0%,30%);
     --header-font-color:#fff;
 
     --object-tools-bg:hsl(0,0%,50%);
+    --object-tools-fg:#fff;
 }
 
 html[data-theme="dark"] {
-    --body-background:hsl(0,0%,0%);
+    --body-bg:hsl(0,0%,0%);
+    --body-fg:#fff;
 
     --header-background:hsl(0,0%,10%);
     --header-font-color:#fff;
 
     --object-tools-bg:hsl(0,0%,15%);
+    --object-tools-fg:#fff;
 }
 
-body {background:var(--body-background);}
+body {/*background:var(--body-bg);*/}
 
 /* Лейаут + Список */
 
@@ -72,7 +89,7 @@ body {background:var(--body-background);}
                                 .change-form .inline-deletelink {font-size:0;}
 
 .submit-row {position:sticky;bottom:0;left:0;z-index:3;margin:48px 0 0;border-radius:0;border-width:1px 0 0 0;width:var(--sticky-width);box-sizing:border-box;}
-body:not(.login) .submit-row {background:var(--body-background);/*position:fixed;bottom:0;left:0;z-index:3;*/}
+body:not(.login) .submit-row {background:var(--body-bg);/*position:fixed;bottom:0;left:0;z-index:3;*/}
 /*body:not(.login) *:has(> .submit-row) {padding-bottom:calc(60px + 24px);}*/
 
 /* Inputs */
