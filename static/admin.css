@@ -1,10 +1,4 @@
 html[data-theme], :root {
-    --header-height:48px;
-    --scrollbar-width:24px;
-    --sticky-width:calc(100vw - var(--filter-width) - var(--scrollbar-width));
-}
-
-html[data-theme], :root {
     /* All buttons */
     --button-fg:#fff;
 
@@ -41,6 +35,12 @@ html[data-theme="dark"] {
 
     --object-tools-bg:hsl(0,0%,15%);
     --object-tools-fg:#fff;
+}
+
+html[data-theme], :root {
+    --header-height:48px;
+    --scrollbar-width:24px;
+    --sticky-width:calc(100vw - var(--filter-width) - var(--scrollbar-width));
 }
 
 body {/*background:var(--body-bg);*/}
