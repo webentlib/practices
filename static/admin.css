@@ -5,14 +5,18 @@ html[data-theme], :root {
 }
 
 html[data-theme], :root {
+    /* All buttons */
     --button-fg:#fff;
 
-    --default-button-bg:#205067;
-    --default-button-hover-bg:#417690;
-
+    /* .button (regular) */
     --button-bg:#417690;
     --button-hover-bg:#205067;
 
+    /* .button.default (primary) */
+    --default-button-bg:#205067;
+    --default-button-hover-bg:#417690;
+
+    /* .submit-row a.deletelink (red) */
     --delete-button-bg:#ba2121;
     --delete-button-hover-bg:#a41515;
 }
