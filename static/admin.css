@@ -1,4 +1,7 @@
 html[data-theme], :root {
+    /* Links */
+    --link-fg:#417893;
+
     /* All buttons */
     --button-fg:#fff;
 
@@ -278,6 +281,9 @@ body.NavSidebarOpened #nav-sidebar {display:block;}
 
 .object-tools li:first-child {margin-left:0;}
 .colMS {margin-right:0 !important;}
+
+.selector-chosen-title {background:var(--body-bg);color:var(--body-fg);}
+.aligned .selector-chosen-title label {color:var(--body-fg);}
 
 html:not([data-theme="dark"]) #content-related {--darkened-bg:#fff;}
 
