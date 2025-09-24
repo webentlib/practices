@@ -263,7 +263,7 @@ select[multiple] {width:100%;min-height:0;}
 .select2-results {}
     .select2-container--default .select2-results__option--selected {background-color:var(--hairline-color);}
 
-.related-widget-wrapper .select2 {display:none;}
+.selector + .select2 {display:none;}
 
 /* Меню в панели */
 
