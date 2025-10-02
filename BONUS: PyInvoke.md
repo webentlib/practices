@@ -1,8 +1,8 @@
 # PyInvoke
 
-https://www.pyinvoke.org/
-https://github.com/pyinvoke/invoke (нужен VPN)
-pip install invoke
+https://www.pyinvoke.org/  
+https://github.com/pyinvoke/invoke (нужен VPN)  
+pip install invoke  
 
 ## 0. It relies on `tasks.py`
 
