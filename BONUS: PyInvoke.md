@@ -8,7 +8,9 @@ pip install invoke
 
 ## 0. It relies on `tasks.py`
 
-So it has to be gitignored `tasks.py` and not-gitignored `tasks.py.tmpl`.  
+
+So it has to be gitignored `tasks.py` at the very root of a git repo.  
+And a not-gitignored `tasks.py.tmpl`.  
   
 Celerys' conf file have to be `app.py` or something.  
 Or it'll confuse some IDEs when one `import tasks`.
