@@ -50,5 +50,5 @@ def a(c):
 
 `a = b` will not work.
 
-## 5. `pty=True` is for pure restream — colored and interactive.
+## 5. `pty=True` is required for pure restream — colored and interactive
  
