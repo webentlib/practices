@@ -7,7 +7,7 @@ https://github.com/pyinvoke/invoke (нужен VPN)
 pip install invoke  
 ```
 
-## 0. It relies on `tasks.py`
+# 0. It relies on `tasks.py`
 
 
 So it has to be gitignored `tasks.py` at the very root of a git repo.  
@@ -16,7 +16,7 @@ And a not-gitignored `tasks.py.tmpl`.
 Celerys' conf file have to be `app.py` or something.  
 Or it'll confuse some IDEs when one `import tasks`.
 
-## 1. Minimal example:
+# 1. Minimal example:
 
 ```
 @task
@@ -24,7 +24,7 @@ def hi(c):
     c.run(f'echo Hi!, pty=True)
 ```
 
-## 2. Optional params:
+# 2. Optional params:
 
 ```
 @task
@@ -41,13 +41,13 @@ invoke up --service=container_name
 invoke up --service='container_name'
 ```
 
-## 3. Params separated by whitespaces must be in string literals:
+# 3. Params separated by whitespaces must be in string literals:
 
 ```shell
 invoke up --param='multiple pieces'
 ```
 
-## 4. Symlinking:
+# 4. Symlinking:
 
 ```
 @task
@@ -57,7 +57,7 @@ def a(c):
 
 `a = b` will not work.
 
-## 5. `pty=True` is required
+# 5. `pty=True` is required
 
 For a pure restream — colored and interactive.
  
