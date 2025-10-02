@@ -52,5 +52,5 @@ def a(c):
 
 ## 5. `pty=True` is required
 
-For pure restream — colored and interactive
+For pure restream — colored and interactive.
  
