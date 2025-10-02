@@ -25,14 +25,18 @@ def up(c, service=''):
 
 All valid:
 
-$ invoke up
-$ invoke up --service container_name
-$ invoke up --service=container_name
-$ invoke up --service='container_name'
+```shell
+invoke up
+invoke up --service container_name
+invoke up --service=container_name
+invoke up --service='container_name'
+```
 
 ## 3. Params separated by whitespaces must be in string literals:
 
-$ invoke up --param='multiple pieces'
+```shell
+invoke up --param='multiple pieces'
+```
 
 ## 4. Symlinking:
 
