@@ -2,11 +2,15 @@
 
 https://www.pyinvoke.org/  
 https://github.com/pyinvoke/invoke (нужен VPN)  
+```shell
 pip install invoke  
+```
 
 ## 0. It relies on `tasks.py`
 
-So Celerys' conf file have to be `app.py` or something.  
+So it has to be gitignored `tasks.py` and not-gitignored `tasks.py.tmpl`.  
+  
+Celerys' conf file have to be `app.py` or something.  
 Or it'll confuse some IDEs when one `import tasks`.
 
 ## 1. Minimal example:
