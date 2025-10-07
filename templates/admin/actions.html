@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load daos_extras %}
+
+<div class="Actions actions">
+    <input type="hidden" name="select_across" value="0" class="select-across" form="changelist-form">
+    <select class="PanelSelect" name="action" required form="changelist-form">
+        {% for value, text in action_form.fields.action.choices %}
+            {% if not value %}
+                <option value="">
+                    {% with action_form.fields.action.label|lower|replace:':,' as action %}
+                        {{ 'Select %s'|translate:action }}
+                    {%  endwith %}
+                </option>
+            {% else %}
+                <option value="{{ value }}">{{ text }}</option>
+            {% endif %}
+        {% endfor %}
+    </select><!--
+    --><button class="PanelButton" form="changelist-form" title="{% translate "Run the selected action" %}" name="index" value="{{ action_index|default:0 }}">{% translate "Go" %}</button>
+
+    {% if actions_selection_counter %}
+        <span class="action-counter" data-actions-icnt="{{ cl.result_list|length }}">
+{#            {{ selection_note }}#}
+        </span>
+        <script>
+            const actionCounter = document.querySelector('.action-counter');
+            let mutatedByScript = true;
+            const actionCounterObserver = new MutationObserver(function(mutationsList, observer) {
+                if (mutatedByScript) {
+                    const value = actionCounter.innerHTML.split(' ').slice(0, 2).join(' ')
+                    if (value.slice(-2) === ' 0') {
+                        actionCounter.innerHTML = '';
+                    } else {
+                        actionCounter.innerHTML = value;
+                    }
+                    mutatedByScript = false;
+                } else {
+                    mutatedByScript = true;
+                }
+            });
+            actionCounterObserver.observe(actionCounter, {childList: true});
+        </script>
+        {% if cl.result_count != cl.result_list|length %}
+        <span class="all hidden">{{ selection_note_all }}</span>
+        <span class="question hidden">
+            {% replace '(,' '),' %}
+                <a role="button" href="#" title="{% translate "Click here to select the objects across all pages" %}">{% blocktranslate with cl.result_count as total_count and '' as module_name %}Select all {{ total_count }} {{ module_name }}{% endblocktranslate %}</a>
+            {% endreplace %}
+        </span>
+        <span class="clear hidden"><a role="button" href="#">{% translate "Clear selection" %}</a></span>
+        {% endif %}
+    {% endif %}
+</div>
